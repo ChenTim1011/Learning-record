@@ -1,3 +1,24 @@
+## Array
+1. Binary Search
+- [Binary Search](https://leetcode.com/problems/binary-search/description/)
+- [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/)
+- [Search Insert Position](https://leetcode.com/problems/search-insert-position/description/)
+- [Sqrt(x)](https://leetcode.com/problems/sqrtx/description/)
+- [Sum of Square Numbers](https://leetcode.com/problems/sum-of-square-numbers/description/)
+- [Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/description/)
+
+2. Sliding Window
+- [Fruit Into Baskets](https://leetcode.com/problems/fruit-into-baskets/description/)
+- [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
+  
+3. Two pointers
+- [Remove Element](https://leetcode.com/problems/remove-element/description/)
+- [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
+
+
+
+
+
 
 ### Key Points about Arrays:
 
@@ -43,74 +64,3 @@
 
 reference:
 [leetcode-master](https://github.com/youngyangyang04/leetcode-master)
-
-Intuition
-We want to find the square root of a given non-negative integer x. Instead of using a traditional approach like repeatedly subtracting numbers until we reach 0 or using a library function, we'll use a smarter method called "Binary Search." Binary Search helps us quickly find the square root by repeatedly narrowing down the search range.
-
-Approach
-We first check if x is 0 or 1. If it is, we know that the square root of 0 and 1 is 0 and 1 respectively, so we directly return x.
-
-For any other value of x, we set up a search range between 1 and x. We initialize two variables start and end to represent the range.
-
-Now comes the clever part: We use a while loop to repeatedly divide the search range in half (Binary Search) to find the square root.
-
-In each iteration of the loop, we calculate the middle value mid using the formula start + (end - start) / 2. This formula ensures that we don't encounter any integer overflow when dealing with large values of x.
-
-Next, we calculate the square of mid and compare it with x.
-
-If the square of mid is greater than x, we know the square root lies in the lower half of the search range. So, we move the end pointer to the left to narrow down the search range.
-
-If the square of mid is equal to x, we have found the square root! So, we return mid as the answer.
-
-If the square of mid is less than x, we know the square root lies in the upper half of the search range. So, we move the start pointer to the right to continue the search.
-
-We repeat steps 4 to 8 until the start pointer becomes greater than the end pointer. At this point, we have found the floor value of the square root, and end holds that value.
-
-To ensure that we return the correct floor value of the square root, we round down the value of end to the nearest integer using the Math.round() method.
-
-Complexity
-Time complexity:
-The time complexity of this approach is O(logN). It's very efficient because Binary Search reduces the search range by half in each iteration, making the search faster.
-
-Space complexity:
-The space complexity is O(1), which means the amount of extra memory used is constant, regardless of the input. We only use a few variables to store the search range and the middle value during the computation.
-
-```c++
-class Solution {
-public:
-    int mySqrt(int x) {
-        // For special cases when x is 0 or 1, return x.
-        if (x == 0 || x == 1)
-            return x;
-        
-        // Initialize the search range for the square root.
-        int start = 1;
-        int end = x;
-        int mid = -1;
-        
-        // Perform binary search to find the square root of x.
-        while (start <= end) {
-            // Calculate the middle point using "start + (end - start) / 2" to avoid integer overflow.
-            mid = start + (end - start) / 2;
-            
-            // Convert mid to long to handle large values without overflow.
-            long long square = static_cast<long long>(mid) * mid;
-            
-            // If the square of the middle value is greater than x, move the "end" to the left (mid - 1).
-            if (square > x)
-                end = mid - 1;
-            else if (square == x)
-                // If the square of the middle value is equal to x, we found the square root.
-                return mid;
-            else
-                // If the square of the middle value is less than x, move the "start" to the right (mid + 1).
-                start = mid + 1;
-        }
-        
-        // The loop ends when "start" becomes greater than "end", and "end" is the integer value of the square root.
-        // However, since we might have been using integer division in the calculations,
-        // we round down the value of "end" to the nearest integer to get the correct square root.
-        return static_cast<int>(std::round(end));
-    }
-};
-```

@@ -1,7 +1,7 @@
-I want to record my leetcode practice during winter vacation!
+I want to record my leetcode practice during 2025 winter vacation!
 
-I will practice different Topic using C++
+I want to  practice different Topic using C++
 
-- Array
-- Binary Search 
+reference
+- [Leetcode master](https://github.com/youngyangyang04/leetcode-master/tree/master)
 
