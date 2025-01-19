@@ -1,3 +1,30 @@
+## Stack and queue
+
+
+1. stack 
+   
+-[Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/description/)
+-[Remove All Adjacent Duplicates In String](https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/description/)
+-[Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/description/)
+-[Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/)
+
+2. queue
+
+-[Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/description/)
+
+3.deque
+
+-[Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/description/)
+
+4.priority_queue
+
+-[Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
+
+
+
+
+
+
 ### The Basics of Stacks and Queues
 
 The principles of stacks and queues are likely familiar to everyone:  

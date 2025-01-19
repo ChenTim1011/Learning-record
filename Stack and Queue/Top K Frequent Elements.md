@@ -1,36 +1,68 @@
 [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
 
+## Map method without using priority_queue 
+
+```c++
+class Solution {
+
+public:
+    // Custom comparator to sort pairs by their second value (frequency) in descending order
+    static bool comp(pair<int, int>& a, pair<int, int>& b) {
+        return a.second > b.second;
+    }
+
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> map; // Map to store the frequency of each element
+        for(int i = 0; i < nums.size(); i++) {
+            map[nums[i]]++; // Increment the frequency of the current element
+        }
+        
+        vector<pair<int, int>> vec(map.begin(), map.end()); // Convert map to a vector of pairs
+
+        sort(vec.begin(), vec.end(), comp); // Sort the vector by frequency in descending order
+        vector<int> result;
+        for(int i = 0; i < k; i++) {
+            result.push_back(vec[i].first); // Add the top k frequent elements to the result
+        }
+        
+        return result; // Return the result vector
+    }
+};
+```
+
+## priority_queue method
+
 ```c++
 class Solution {
 public:
-    class mycmp{
+    // Custom comparator for the priority queue to implement a min-heap
+    class mycmp {
     public:
-        bool operator()(const pair<int,int>& rhs, const pair<int,int>& lhs){
-            return rhs.second > lhs.second ;
+        bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
+            return lhs.second > rhs.second; // Compare by frequency in ascending order
         }
     };
 
     vector<int> topKFrequent(vector<int>& nums, int k) {
-
-        unordered_map<int,int> maps;
+        unordered_map<int, int> maps; // Map to store the frequency of each element
         // nums = [1,1,1,2,2,3], k = 2
-        for(int i=0;i<nums.size();i++){
-            maps[nums[i]]++;
+        for(int i = 0; i < nums.size(); i++) {
+            maps[nums[i]]++; // Increment the frequency of the current element
         }      
         // map 1:3 2:2 3:1
-        priority_queue<pair<int,int>,vector<pair<int,int>>,mycmp> pe;
-        for(auto it = maps.begin();it != maps.end();it++){  
-            pe.push(*it);
-            if(pe.size()>k){
-                pe.pop();
+        priority_queue<pair<int, int>, vector<pair<int, int>>, mycmp> pe; // Min-heap to store the top k elements
+        for(auto it = maps.begin(); it != maps.end(); it++) {  
+            pe.push(*it); // Push the current element and its frequency into the heap
+            if(pe.size() > k) {
+                pe.pop(); // If the heap size exceeds k, remove the element with the smallest frequency
             }
         }
-        vector<int> result(k,0);
-        for(int i=k-1;i>=0;i--){
-            result[i]=pe.top().first;
+        vector<int> result(k, 0);
+        for(int i = k - 1; i >= 0; i--) {
+            result[i] = pe.top().first; // Extract the top k elements from the heap
             pe.pop();
         }
-        return result;
+        return result; // Return the result vector
     }
 };
 ```
