@@ -116,51 +116,37 @@ If any node violates the bipartite property, the grouping is impossible, and we 
 ```cpp
 class Solution {
 public:
-    int magnificentSets(int n, vector<vector<int>>& edges) {
-        // Step 1: Build the graph using adjacency list
-        vector<vector<int>> graph(n + 1);
-        for (auto& edge : edges) {
-            graph[edge[0]].push_back(edge[1]);
-            graph[edge[1]].push_back(edge[0]);
+    int magnificentSets(int numNodes, vector<vector<int>>& edgesList) {
+        vector<vector<int>> adjacencyList(numNodes);
+        for (auto& edge : edgesList) {
+            int node1 = edge[0] - 1, node2 = edge[1] - 1;
+            adjacencyList[node1].push_back(node2);
+            adjacencyList[node2].push_back(node1);
         }
-
-        // Step 2: Initialize maxDepth array to store the maximum depth for each connected component
-        vector<int> maxDepth(n + 1, 0);
-
-        // Step 3: Perform BFS for each node
-        for (int i = 1; i <= n; i++) {
-            queue<int> q;
-            vector<int> visited(n + 1, 0);
-            q.push(i);
-            visited[i] = 1; // Start with depth = 1
-
-            int depth = 0;
-            while (!q.empty()) {
-                int size = q.size();
-                depth++;
-
-                for (int j = 0; j < size; j++) {
-                    int cur = q.front();
-                    q.pop();
-
-                    // Traverse neighbors
-                    for (int neighbor : graph[cur]) {
-                        if (visited[neighbor] == 0) { // Unvisited node
-                            visited[neighbor] = depth + 1;
-                            q.push(neighbor);
-                        } else if (abs(visited[neighbor] - visited[cur]) != 1) {
-                            return -1; // Bipartite property violated
-                        }
+        vector<int> nodeDistances(numNodes);
+        for (int startNode = 0; startNode < numNodes; ++startNode) {
+            queue<int> nodeQueue{{startNode}};
+            vector<int> distance(numNodes);
+            distance[startNode] = 1;
+            int maxDistance = 1;
+            int rootNode = startNode;
+            while (!nodeQueue.empty()) {
+                int currentNode = nodeQueue.front();
+                nodeQueue.pop();
+                rootNode = min(rootNode, currentNode);
+                for (int neighbor : adjacencyList[currentNode]) {
+                    if (distance[neighbor] == 0) {
+                        distance[neighbor] = distance[currentNode] + 1;
+                        maxDistance = max(maxDistance, distance[neighbor]);
+                        nodeQueue.push(neighbor);
+                    } else if (abs(distance[neighbor] - distance[currentNode]) != 1) {
+                        return -1;
                     }
                 }
             }
-
-            // Update maxDepth for this connected component
-            maxDepth[i] = max(maxDepth[i], depth);
+            nodeDistances[rootNode] = max(nodeDistances[rootNode], maxDistance);
         }
-
-        // Step 4: Sum up the maximum depths for all connected components
-        return accumulate(maxDepth.begin(), maxDepth.end(), 0);
+        return accumulate(nodeDistances.begin(), nodeDistances.end(), 0);
     }
 };
 ```
