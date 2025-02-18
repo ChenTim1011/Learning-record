@@ -75,7 +75,7 @@ private:
                 result[index] = 0; // Undo choice
                 used[1] = false;
             } 
-            else if (index + i < result.size() && result[index + i] == 0) { // Check if we can place i at index and index + i
+            else if (index + i < result.size() && result[index + i] == 0) { // Check if we can place i at index and index + i 
                 result[index] = i;
                 result[index + i] = i;
                 used[i] = true;
