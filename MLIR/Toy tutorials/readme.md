@@ -14,10 +14,3 @@ This tutorial demonstrates how to implement a basic toy language using MLIR. It 
 6. **Lowering to LLVM** – Generate LLVM IR and explore the lowering framework.  
 7. **Extending Toy** – Add custom composite types and integrate them into the pipeline.  
 
-Chapter 1: Toy Language and AST
-Chapter 2: Emitting Basic MLIR
-Chapter 3: High-level Language-Specific Analysis and Transformation
-Chapter 4: Enabling Generic Transformation with Interfaces
-Chapter 5: Partial Lowering to Lower-Level Dialects for Optimization
-Chapter 6: Lowering to LLVM and CodeGeneration
-Chapter 7: Adding a Composite Type to Toy

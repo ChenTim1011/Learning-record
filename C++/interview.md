@@ -1,9 +1,6 @@
 Reference:
 [奉勸大家把資工學科熟讀](https://www.dcard.tw/f/graduate_school/p/258129327)
 
-Here’s the translated and well-structured response in English:
-
----
 
 ## **1. What’s the Difference Between BFS and DFS? When to Use Them?**
 - **BFS (Breadth-First Search)**  
